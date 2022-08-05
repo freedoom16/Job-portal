@@ -128,9 +128,15 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
-        
-          <Button color="inherit" onClick={()=>{navigate('/signup', {replace: true})}}>
-            Signup</Button>
+          <Button color="inherit" onClick={()=>{navigate('/employer', {replace: true})}}>
+            Employer</Button>
+          <Button color="inherit" onClick={()=>{navigate('/profilej', {replace: true})}}>
+            Jobseeker</Button>
+          <Button 
+            color="inherit" 
+            onClick={()=>{navigate('/signup', {replace: true})}}>
+            Signup
+          </Button>
           <Button color="inherit" onClick={()=>{navigate('/signin', {replace: true})}}>
             Login</Button>
           {/* <Link to={"/signup"}></Link> */}

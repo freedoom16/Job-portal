@@ -19,6 +19,9 @@ import {
   // onAuthStateChanged,
   // signOut,
 } from "firebase/auth";
+import {  useNavigate } from "react-router-dom";
+import { UserAuth } from '../context/AuthContext';
+
 
 function Copyright(props) {
   return (
@@ -34,17 +37,24 @@ function Copyright(props) {
 }
 
 export default function Signin() {
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
+
   const theme = createTheme();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const navigate = useNavigate()
+  const { signIn } = UserAuth();
+  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signIn(loginEmail, loginPassword)
+      navigate('/')
+    } catch (e) {
+      console.log(e.message)
+    }
+  };
+
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(
@@ -52,6 +62,7 @@ export default function Signin() {
         loginEmail,
         loginPassword
       );
+      navigate("/profilej",{ replace: true });
       console.log(user);
     } catch (error) {
       console.log(error.message);
@@ -75,7 +86,7 @@ export default function Signin() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form"  noValidate sx={{ mt: 1 }}>
+          <Box component="form"  noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
             <TextField
               margin="normal"
               required
@@ -122,7 +133,7 @@ export default function Signin() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/singup" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
