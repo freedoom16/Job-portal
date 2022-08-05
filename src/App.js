@@ -7,6 +7,7 @@ import Navbar from './Component/Navbar';
 import Signin from './Component/Signin';
 import Profilej from './Component/jobseeker/ProfileJ';
 import Employer from './Component/Employer/Employer';
+import Post from './Component/Employer/component/Post'
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/profilej' element={<Profilej />} />
           <Route path='/employer' element={<Employer />} />
+          <Route path='/employer/post' element={<Post />} />
         </Routes>
     </AuthProvider>
     </BrowserRouter>
