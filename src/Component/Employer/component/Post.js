@@ -8,28 +8,47 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { db } from "../../../firebaseConfig"
+import {
+  collection,
+  addDoc
+} from "firebase/firestore";
 
 const theme = createTheme();
-
 export default function Post() {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      jobTitle: data.get('JobTitle'),
+      jobType: data.get('JobType'),
     });
   };
 
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [jobTitle, setJobTitle] = useState("");
+  const [jobType, setJobType] = useState("");
+  const [jobSalary, setJobSalary] = useState("");
+  const [jobDescrption, setJobDescrption] = useState("");
 
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
     }
   }, [selectedImage]);
+
+
+  const usersCollectionRef = collection(db, "job");
+
+  const createUser = async () => {
+    await addDoc(usersCollectionRef, { jobTitile: jobTitle, jobType: jobType ,jobSalary: jobSalary, jobDescrption: jobDescrption});
+  };
+  // const createUser = async () => {
+  //   await addDoc(usersCollectionRef, { jobTitle: JobTitle, jobType: JobType});
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,6 +76,9 @@ export default function Post() {
                   id="job-title"
                   label="job title"
                   autoFocus
+                  onChange={(event) => {
+                    setJobTitle(event.target.value);
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -67,6 +89,9 @@ export default function Post() {
                   label="job type"
                   name="job-type"
                   autoComplete="job type"
+                  onChange={(event) => {
+                    setJobType(event.target.value);
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -77,6 +102,9 @@ export default function Post() {
                   label="salary"
                   name="salary"
                   autoComplete="salary"
+                  onChange={(event) => {
+                    setJobSalary(event.target.value);
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -89,6 +117,9 @@ export default function Post() {
                   type="descrption"
                   id="descrption"
                   autoComplete="descrption"
+                  onChange={(event) => {
+                    setJobDescrption(event.target.value);
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -116,8 +147,9 @@ export default function Post() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={createUser}
             >
-              Sign Up
+              post
             </Button>
           </Box>
         </Box>

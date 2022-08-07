@@ -8,6 +8,7 @@ import Signin from './Component/Signin';
 import Profilej from './Component/jobseeker/ProfileJ';
 import Employer from './Component/Employer/Employer';
 import Post from './Component/Employer/component/Post'
+import View from './Component/Employer/component/View'
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path='/profilej' element={<Profilej />} />
           <Route path='/employer' element={<Employer />} />
           <Route path='/employer/post' element={<Post />} />
+          <Route path='/employer/view' element={<View />} />
         </Routes>
     </AuthProvider>
     </BrowserRouter>

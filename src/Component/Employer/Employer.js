@@ -5,9 +5,13 @@ import {  useNavigate } from "react-router-dom";
 
 export default function Employer() {
   const navigate = useNavigate();
-  const login = async () => {
-    navigate("/signin",{ replace: true })
+  const post = async () => {
+    navigate("/employer/post",{ replace: true })
   };
+  const view = async () => {
+    navigate("/employer/view",{ replace: true })
+  };
+
   return (
     <Container>
          <Button
@@ -15,7 +19,7 @@ export default function Employer() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={login}
+              onClick={post}
             >
               post
           </Button>
@@ -35,7 +39,7 @@ export default function Employer() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              // onClick={login}
+              onClick={view}
             >
               view 
           </Button>
